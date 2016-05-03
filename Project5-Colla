@@ -2,6 +2,11 @@
 ///By: Ana Collantes
 
 String author="Project 5 - Ana Collantes";
+String randomly="Press 'r' to reset/ move randomly";
+String tallest="Press 't' to move tallest to the end";
+String fattest="Press 'f' to move fattest to the end";
+String bird="Press 'b' to move bird to the last person";
+
 int many=8;
 Person[] human=new Person[many];
 int x=700;
@@ -14,8 +19,9 @@ float birdX, birdY;
 int wing1=7;
 int wing2;
 int flap=25;
-float cloudX;
-float cloudY=random(5,500 );
+//float cloudX;
+//float cloudY=random(5,500 );
+Clouds cloud= new Clouds();
 
 void setup() {
   size(x, y);
@@ -35,6 +41,10 @@ void messages() {
   fill(0);
   textSize(16);
   text(author,10,590);
+  text(randomly, 10,15);
+  text(tallest,10,30);
+  text(fattest,10,45);
+  text(bird,10,60);
 }
 
 
@@ -45,7 +55,8 @@ void draw() {
 
   messages();
   bird();
-  clouds();
+  cloud.drawCloud();
+ // clouds();
   ///this creates the numbers written on the left side of the screen
   //for ( int c=0; c<=4; c=c+1) { 
     //text( c, 10, 10+c*12 );
@@ -76,19 +87,35 @@ void bird() {
   }
 }
 
-void clouds() {
-  fill(255, 255, 255, 191);
-  ellipse(cloudX, cloudY, 50, 20);
+//void clouds() {
+ // fill(255, 255, 255, 191);
+ // ellipse(cloudX, cloudY, 50, 20);
 
-  cloudX=cloudX+3;
-}
+//  cloudX=cloudX+3;
+//}
 
 
 void keyPressed() {
   if (key == 'r') reset();
   if (key == 't') tall();
   if (key == 'b') birdX=birdY=0;
+  if(key=='f') fattest();
 }
+
+void fattest() {
+ 
+  //// Move fattest to end.
+  //// Find index "k" of tallest; change personX to PersonX of last.
+  int k=0;
+  for (int j=1; j<many; j++) {
+    if(human[j].w > human[k].w) k=j;
+  }
+  swap( human, k, last );
+  //// 
+  //
+  last=  k;
+}
+  
 void tall() {
   //// Move tallest to end.
   //// Find index "k" of tallest; change personX to PersonX of last.
@@ -130,5 +157,31 @@ class Person {
     fill(r, g, b);
     rect(personX, sidewalk, w, -big);
     ellipse(personX+w/2, sidewalk-big-15, 15, 25);
+  }
+}
+
+class Clouds {
+  int cloudX;
+  int cloudY;
+  
+  Clouds() {
+  cloudX=(int)random(0,150);
+  cloudY=(int)random(1,250);
+  }
+  
+  void drawCloud() {
+  fill(255, 255, 255, 191);
+  ellipse(cloudX, cloudY, 50, 20);
+  ellipse(cloudX-50, cloudY+30, 50, 20);
+  ellipse(cloudX-70, cloudY+50, 45, 15);
+  ellipse(cloudX-90, cloudY+70, 40, 10);
+  ellipse(cloudX-110, cloudY+90, 35, 5);
+  ellipse(cloudX-130, cloudY+110, 30, 3);
+
+  cloudX=cloudX+3;
+  
+  if(cloudX>width) {cloudX=0; cloudY=(int)random(1,250);}
+  
+  
   }
 }
