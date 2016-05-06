@@ -22,6 +22,7 @@ int flap=25;
 //float cloudX;
 //float cloudY=random(5,500 );
 Clouds cloud= new Clouds();
+String [] names={"Joe", "James", "Jay", "Jimmy", "Kevin", "Joey", "Ted", "Kai"};
 
 void setup() {
   size(x, y);
@@ -33,6 +34,7 @@ void reset() {
   //--for ( int p=0; p<=7; p=p+1) {
   for ( int p=0; p<many; p=p+1) {
     human[p]= new Person(p*79);
+    human[p].name=names[p];
   }
   last=  many-1;
 }
@@ -144,6 +146,7 @@ class Person {
   float r;
   float b;
   float g;
+  String name;
   // CONSTRUCTOR //
   Person(float h) {
     personX=h+random(20, 40);
@@ -152,11 +155,13 @@ class Person {
     r=  random(0, 255);
     b=  random(0, 255);
     g=  random(0, 255);
+    name="";
   }
   void drawhuman() {
     fill(r, g, b);
     rect(personX, sidewalk, w, -big);
     ellipse(personX+w/2, sidewalk-big-15, 15, 25);
+    text(name, personX, 480);
   }
 }
 
