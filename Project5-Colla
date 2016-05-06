@@ -23,6 +23,11 @@ int flap=25;
 //float cloudY=random(5,500 );
 Clouds cloud= new Clouds();
 String [] names={"Joe", "James", "Jay", "Jimmy", "Kevin", "Joey", "Ted", "Kai"};
+String [] statures={ "8'9in", "8'2in", "11'0in", "10'5in", "4'7in", "9'2in", "10'9in", "9'8in"}; ///height of humans
+String [] rgbs={"random#", "random#", "random#", "random#", "random#", "random#", "random#", "random#"};
+String [] pounds={"100lbs", "160lbs", "175lbs", "195lbs", "200lbs", "205lbs", "123lbs", "188lbs"};
+float [] tall={  90, 70, 150, 130, 50, 100, 145, 110};
+float [] weight={20, 35, 49, 50, 55, 60, 29, 42};
 
 void setup() {
   size(x, y);
@@ -35,6 +40,11 @@ void reset() {
   for ( int p=0; p<many; p=p+1) {
     human[p]= new Person(p*79);
     human[p].name=names[p];
+    human[p].stature=statures[p];
+    human[p].rgb=rgbs[p];
+    human[p].pound=pounds[p];
+    human[p].big=tall[p];
+    human[p].w=weight[p];
   }
   last=  many-1;
 }
@@ -147,6 +157,9 @@ class Person {
   float b;
   float g;
   String name;
+  String stature;
+  String rgb;
+  String pound;
   // CONSTRUCTOR //
   Person(float h) {
     personX=h+random(20, 40);
@@ -156,12 +169,20 @@ class Person {
     b=  random(0, 255);
     g=  random(0, 255);
     name="";
+    stature="";
+    rgb="";
+    pound="";
   }
   void drawhuman() {
     fill(r, g, b);
     rect(personX, sidewalk, w, -big);
     ellipse(personX+w/2, sidewalk-big-15, 15, 25);
-    text(name, personX, 480);
+    
+    textSize(12);
+    text(name, personX, 480); ///names of the people
+    text(stature,personX, 500);  ///height of the people
+    text(rgb,personX,520); /// color of the people
+    text(pound,personX, 540);
   }
 }
 
@@ -190,3 +211,4 @@ class Clouds {
   
   }
 }
+
