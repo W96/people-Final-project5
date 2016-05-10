@@ -1,0 +1,120 @@
+//Project 4 Colla
+ ///By: Ana Collantes
+
+String author="Ana Collantes";
+
+int[] n={777,859,545,234,123,2643,475,1,10,0,4};
+ int many=n.length;
+
+String grandtotal= "The total is:";
+ String avg="The average is:";
+
+
+
+
+
+ void setup() {
+   size(600,500);
+ }
+
+void draw() {
+   background(0);
+   messages();
+  
+   
+   int next=18;
+   float x=100, y=100;
+   for(int a=0; a<many; a++) {
+      text(n[a], x ,y);
+     y+=next;
+   }
+   
+   y+= next;
+   int total;
+   total= sum(n,many);
+   float average= float(total) / many;
+   
+   fill(185,165,255);
+   text(grandtotal+total, 1,y+150);
+   y+=next;
+   fill(237,193,255);
+   text(avg+average,1,y+150);
+ }
+
+void messages() {
+   textSize(18);
+   fill(255);
+   text(author,10,15);
+ }
+
+int sum(int s[], int m){
+   int result=0;
+   for(int a=0; a<m; a++){
+     result += s[a];
+   }
+   return result;
+ }
+
+void keyPressed() {
+   if (key == 'q') exit();
+   else if (key == 'b') big( n, many );
+   else if (key == 's') small( n, many );
+   else if (key == 'o') order( n, many );
+   //  
+   else if (key == 'i') inc( n, many );
+   else if (key == 'd') dec( n, many );
+   else if (key == 't') triple( n, many );
+ }
+
+void order( int o[], int m ) {
+   for (int r=m; r>1; r--) {
+     big( o, r );
+   }
+ }
+ void big( int e[], int m ) { /// move biggest number to the end
+   int w=  whereBig( e, m );
+   swap( e, w, m-1 );
+ }
+ int whereBig( int e[], int m) {
+   int w=0;
+   for(int a=0; a<many; a++) {
+     if (e[a] > e[w]) w=a;
+   }
+   return w;
+ }
+ void swap( int s[], int a, int b ) {
+   int tmp=  s[a];
+   s[a]=  s[b];
+   s[b]=  tmp;
+ }
+
+void small( int b[], int m ) {  /// moves smallest number to the beginning
+   int w=0;
+   for(int a=0; a<many; a++) {
+     if (b[a] < b[w]) w=a;
+   }
+   swap( b, w, 0 );
+ }
+
+void inc( int c[], int m ) { ///increase number by one
+  for(int a=0; a<many; a++) {
+     c[a]++;
+   }
+ }
+
+void dec( int d[], int m ) { ///decrease number by one
+   for(int a=0; a<many; a++) {
+     d[a]--;
+   }
+ }
+
+void triple( int e[], int m ) { ////triple the numbers
+    for(int a=0; a<many; a++) {
+     e[a] *= 3;
+   }
+ }
+ void odd( int f[], int m ) {  /// put numbers in random places
+    for(int a=0; a<many; a++) {
+     f[a]=  int( random( 0, 10000 ) );
+   }
+ }
